@@ -1,0 +1,123 @@
+﻿<template>
+
+    <div>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <div class="loader content--loading" v-if="loading"></div>
+    <ul id="hexGrid">
+        <li class="hex" v-for="(project, index) in projects" :id="index" v-on:click="SetActiveProject(index)">
+            <div class="hexIn">
+                <div class="hexLink" v-bind:style="{ backgroundImage: 'url(' + project.logo + ')', backgroundSize: 'cover', backgroundPosition: 'center' }" >
+
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- The Modal -->
+        <div id="Modal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-sm-8 text-center" style="color: rgb(169, 169, 169);">
+                        <div id="Title" class="project-title">
+                            <div class="col-xs-4 text-center">
+                                <h4>
+                                    Project:
+                                </h4>
+                            </div>
+                            <div class="col-xs-8 text-center">
+                                <h4>
+                                    {{activeProject.name}}
+                                </h4>
+                            </div>
+
+                        </div>
+                        <div id="Description" class="project-description">
+                            <div class="col-xs-4 text-center">
+                                <h3>
+                                    Description: 
+                                </h3>
+                            </div>
+                            <div class="col-xs-8 text-center">
+                                <h3>
+                                    {{activeProject.description}}
+                                </h3>
+                            </div>
+                        </div>
+                        <div id="About" class="project-about">
+                            <div class="col-xs-4 text-center">
+                                <h3>
+                                    What I Did:
+                                </h3>
+                            </div>
+                            <div class="col-xs-8 text-center">
+                                <ul>
+                                    <li v-for="task in activeProject.tasks">{{task}}</li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 text-center" style="color: white">
+
+                        <div id="carousel-example-generic" class="carousel slide" data-interval="0" data-ride="carousel">
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+
+                                <div v-for="(image, index) in activeProject.pictures" :class="index == 0 ? 'item active' : 'item'">
+                                    
+                                    <img class="img-responsive center-block" :src="image.url" alt="..." v-on:click="ImageModalActive(image.url)">
+                                    <!--<div class="caption" style="color: rgb(169, 169, 169);">
+                                        {{image.description}}
+                                    </div>-->
+
+                                </div>
+                                <div v-for="(video, index) in activeProject.videos" :id="'video-' + index" class="item" v-on:click="VideoModalActive(video.url)">
+                                    <video autoplay muted playsinline loop="" class="img-responsive center-block" type="video/mp4" :src="video.url"></video>
+                                    <!--<div class="caption" style="color: rgb(169, 169, 169);">
+                                        {{video.description}}
+                                    </div>-->
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" >
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" >
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <!-- The Modal -->
+        <div id="image-modal" class="modal image-modal">
+            <!-- Modal content -->
+            <div class="modal-content image-content" v-on:click="ImageModalInactive()">
+                <img class="img-responsive center-block " :src="activeImage" alt="..." data-dismiss="image-modal">
+                    <div class="loader content--loading" v-if="activeImage == ''"></div>
+
+            </div>
+
+        </div>
+        <div id="video-modal" class="modal image-modal">
+            <!-- Modal content -->
+            <div class="modal-content image-content" v-on:click="VideoModalInactive()">
+                <video autoplay="" muted playsinline loop="" class="img-responsive center-block" type="video/mp4" :src="activeVideoSrc"></video>
+                <div class="loader content--loading" v-if="activeVideo == ''"></div>
+
+            </div>
+
+        </div>
+    </div>
+</template>
+
+    <script src="./projects.ts"></script>
+    <style src="./projects.css" />

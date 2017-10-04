@@ -7,9 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VueSPA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170915223131_VideoSupport")]
+    partial class VideoSupport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -22,9 +23,11 @@ namespace VueSPA.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("EndDate");
+
                     b.Property<string>("Name");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<string>("StartDate");
 
                     b.Property<string>("_Pictures");
 

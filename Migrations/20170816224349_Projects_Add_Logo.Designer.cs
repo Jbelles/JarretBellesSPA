@@ -7,9 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VueSPA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170816224349_Projects_Add_Logo")]
+    partial class Projects_Add_Logo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -22,15 +23,15 @@ namespace VueSPA.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("EndDate");
+
                     b.Property<string>("Name");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<string>("StartDate");
 
                     b.Property<string>("_Pictures");
 
                     b.Property<string>("_Tasks");
-
-                    b.Property<string>("_Videos");
 
                     b.Property<string>("logo");
 

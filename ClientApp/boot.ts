@@ -1,4 +1,5 @@
 import 'bootstrap';
+import $ from 'jquery';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -7,7 +8,8 @@ const routes = [
     { path: '/', component: require('./components/home/home.vue.html') },
     { path: '/counter', component: require('./components/counter/counter.vue.html') },
     { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html') },
-    { path: '/TestComponent', component: require('./components/TestComponent/TestComponent.vue.html') }
+    { path: '/resume', component: require('./components/resume/resume.vue.html') },
+    { path: '/projects', component: require('./components/projects/projects.vue.html') }
 ];
 
 new Vue({

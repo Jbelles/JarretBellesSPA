@@ -1,0 +1,135 @@
+body .resume-base{
+    font-family: Georgia;
+    max-width: 900px;
+    min-height: 100%;
+}
+.header {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.header-info{
+    display: inline-block;
+    min-width: 45%;
+}
+.header-info-2 {
+padding-bottom: 2vh;
+}
+.resume-base {
+    margin-top: 2vh;
+    border: solid #666;
+    border-width: 8px 0 2px 0;
+    padding: 2vh 4vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f5f5f5;
+}
+.resume-name {
+    font-size: calc(17px + 3.3vh);
+    font-weight: normal;
+    letter-spacing: 3px;
+}
+.title {
+    font-size: calc(9px + 2.6vh);
+    font-weight: normal;
+    letter-spacing: 3px;
+    border-top: 1px solid #ccc;
+}
+.title-2{
+    font-size: calc(6px + 1.8vh);
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: 2px;
+}
+.title-3{
+     font-size: calc(4px + 1.6vh);
+     letter-spacing: 1px;
+ }
+.title-4 {
+    font-size: calc(3px + .3vh + .7vw);
+    letter-spacing: 1px;
+}
+.skills-description{
+    padding-left: 10%;
+}
+.skills-list{
+    padding-left: 2%;
+    display: inline-block;
+    list-style:none;
+    margin-right: 20%;
+}
+.technical-container{
+    padding-left: 10%;
+}
+.technical-list {
+    margin-top: 2%;
+    font-size: calc(4px + 1.6vh);
+    letter-spacing: 0;
+    display: inline-block;
+    list-style: none;
+    text-align: left;
+    padding-top: 0;
+    padding-bottom: 2vh;
+    width: 30%;
+}
+.technical-item {
+    border-bottom: 1px solid #ccc;
+}
+.experience-description {
+    padding-left: 10%;
+}
+.experience-item {
+    padding-left: 2%;
+    list-style: none;
+}
+.profile-body{
+    padding-left: 10%;
+}
+.education-description{
+    padding-left: 10%;
+}
+.education-item {
+    padding-left: 2%;
+    list-style: none;
+}
+.year{
+    font-weight: bold;
+    float: right;
+    text-align: right;
+}
+.footer {
+    margin-top: 1vh;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    padding-top: 2.5%;
+}
+.footer p {
+    margin: 0;
+}
+@media (max-width: 767px) {
+    .title-4 {
+        font-size: calc(3px + .6vh + 1.2vw);
+    }
+    .skills-description {
+        padding-left: 5%;
+    }
+    .experience-description {
+        padding-left: 5%;
+    }
+    .education-description {
+        padding-left: 5%;
+    }
+    .profile-body{
+        padding-left: 5%;
+    }
+    .technical-container{
+        padding-left:5%;
+    }
+    .resume-base {
+        margin-top: calc(30px + 8vh);
+        padding: 3vh 5vw;
+    }
+    .footer p {
+        margin: 0;
+    }
+}

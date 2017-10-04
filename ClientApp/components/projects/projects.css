@@ -1,0 +1,677 @@
+﻿@keyframes Move-Hex{
+    100% {
+        transform: translateY(800px);
+        -webkit-transform: translateY(800px);
+        opacity: 0;
+    }
+}
+@keyframes pop {
+    100% {
+        transform: translateZ(200px) translateX(-4.2%) translateY(-25%) perspective(450px);
+        -webkit-transform: translateZ(200px) translateX(-4.2%) translateY(-25%) perspective(450px);
+        animation-fill-mode: forwards;
+        -webkit-animation-fill-mode: forwards;
+    }
+}
+
+@keyframes pop-hexIn {
+    100% {
+        transform: translateZ(90px) perspective(450px) rotate3d(0,0,1,-60deg) skewY(30deg);
+        -webkit-transform: translateZ(90px) perspective(450px) rotate3d(0,0,1,-60deg) skewY(30deg);
+        animation-fill-mode: forwards;
+        -webkit-animation-fill-mode: forwards;
+    }
+}
+
+@keyframes pop-hex-link {
+    100% {
+        transform: translateZ(0px) perspective(450px) skewY(-30deg) rotate3d(0,0,1,60deg);
+        -webkit-transform: translateZ(0px) perspective(450px) skewY(-30deg) rotate3d(0,0,1,60deg);
+        animation-fill-mode: forwards;
+        -webkit-animation-fill-mode: forwards;
+    }
+}
+
+@keyframes push {
+    0% {
+        transform: translateZ(200px) perspective(450px);
+        -webkit-transform: translateZ(200px) perspective(450px);
+    }
+    100% {
+        transform: translateZ(0px) perspective(450px);
+        -webkit-transform: translateZ(0px) perspective(450px);
+    }
+}
+
+@keyframes push-hexIn {
+    0% {
+        transform: translateZ(50px) perspective(450px) rotate3d(0,0,1,-60deg) skewY(30deg);
+        -webkit-transform: translateZ(50px) perspective(450px) rotate3d(0,0,1,-60deg) skewY(30deg);
+    }
+    100% {
+        transform: translateZ(0px) perspective(450px) rotate3d(0,0,1,-60deg) skewY(30deg);
+        -webkit-transform: translateZ(0px) perspective(450px) rotate3d(0,0,1,-60deg) skewY(30deg);
+    }
+}
+
+@keyframes push-hex-link {
+
+    0% {
+        transform: translateZ(0px) perspective(450px) skewY(-30deg) rotate3d(0,0,1,60deg);
+        -webkit-transform: translateZ(0px) perspective(450px) skewY(-30deg) rotate3d(0,0,1,60deg);
+    }
+    100% {
+        transform: translateZ(0px) perspective(450px) skewY(-30deg) rotate3d(0,0,1,60deg);
+        -webkit-transform: translateZ(0px) perspective(450px) skewY(-30deg) rotate3d(0,0,1,60deg);
+    }
+}
+
+@keyframes in-from-front {
+    0% {
+        opacity: .2;
+        transform: translateZ(-6000px) perspective(450px);
+        -webkit-transform: translateZ(-6000px) perspective(450px);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateZ(0px) perspective(450px);
+        -webkit-transform: translateZ(0px) perspective(450px);
+    }
+}
+
+@keyframes in-from-back {
+    0% {
+        opacity: .2;
+        transform: translateZ(6000px) perspective(450px);
+        -webkit-transform: translateZ(6000px) perspective(450px);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateZ(0px) perspective(450px);
+        -webkit-transform: translateZ(0px) perspective(450px);
+    }
+}
+@keyframes in-from-left {
+    0% {
+        opacity: .2;
+        transform: translateX(600px);
+        -webkit-transform: translateX(600px);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+    }
+}
+@keyframes in-from-right {
+    0% {
+        opacity: .2;
+        transform: translateX(-600px);
+        -webkit-transform: translateX(-600px);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+    }
+}
+@keyframes in-from-top {
+    0% {
+        opacity: .2;
+        transform: translateY(-200px);
+        -webkit-transform: translateY(-200px);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+        -webkit-transform: translateX(0px);
+    }
+}
+@keyframes in-from-bottom {
+    0% {
+        opacity: .2;
+        transform: translateY(800px);
+        -webkit-transform: translateY(800px);
+    }
+
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+    }
+}
+
+
+#hexGrid .active-hex {
+    animation: Move-Hex .3s cubic-bezier(.28,.62,.74,1.11) !important;
+    -webkit-animation: Move-Hex .3s cubic-bezier(.28,.62,.74,1.11) !important;
+    opacity: .5;
+    animation-fill-mode: forwards !important;
+    -webkit-animation-fill-mode: forwards !important;
+    pointer-events: none;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+}
+
+
+#hexGrid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 2% auto;
+    font-size: 15px;
+    padding-bottom: 45%;
+    margin-right: 25%;
+    list-style-type: none;
+    top: -100vh;
+    padding-right: 20%;
+    /*-webkit-transform: perspective(calc(75%)) rotateX(20deg);
+    -moz-transform: perspective(calc(75%)) rotateX(20deg);
+    -ms-transform: perspective(calc(75%)) rotateX(20deg);
+    -o-transform: perspective(calc(75%)) rotateX(20deg);*/
+    transform: perspective(1000px) rotateX(55deg) rotateZ(15deg) translate3d(0, -200px, 15px);
+    -webkit-transform: perspective(1000px) rotateX(55deg) rotateZ(15deg) translate3d(0, -200px, 15px);
+}
+
+.hex {
+    position: relative;
+    visibility: hidden;
+    outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+    perspective: 450px;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+}
+    .hex.hover {
+        animation: .2s cubic-bezier(.28,.62,.74,1.11) pop !important;
+        -webkit-animation: .2s cubic-bezier(.28,.62,.74,1.11) pop !important;
+        animation-fill-mode: forwards !important;
+        -webkit-animation-fill-mode: forwards !important;
+        z-index: 50;
+    }
+        .hex.hover .hexIn {
+            animation: .2s cubic-bezier(.28,.62,.74,1.11) pop-hexIn !important;
+            -webkit-animation: .2s cubic-bezier(.28,.62,.74,1.11) pop-hexIn !important;
+            animation-fill-mode: forwards !important;
+            -webkit-animation-fill-mode: forwards !important;
+            z-index: 50;
+        }
+        .hex.hover .hexLink {
+            opacity: 1;
+            z-index: 50;
+            box-sizing: border-box;
+            animation: .2s cubic-bezier(.28,.62,.74,1.11) pop-hex-link !important;
+            -webkit-animation: .2s cubic-bezier(.28,.62,.74,1.11) pop-hex-link !important;
+            animation-fill-mode: forwards !important;
+            -webkit-animation-fill-mode: forwards !important;
+        }
+    .hex.hover-out {
+        animation: .2s cubic-bezier(.28,.62,.74,1.11) push !important;
+        -webkit-animation: .2s cubic-bezier(.28,.62,.74,1.11) push !important;
+        animation-fill-mode: forwards !important;
+        -webkit-animation-fill-mode: forwards !important;
+    }
+        .hex.hover-out .hexIn {
+            animation: .2s cubic-bezier(.28,.62,.74,1.11) push-hexIn !important;
+            -webkit-animation: .2s cubic-bezier(.28,.62,.74,1.11) push-hexIn !important;
+            animation-fill-mode: forwards !important;
+            -webkit-animation-fill-mode: forwards !important;
+        }
+        .hex.hover-out .hexLink {
+            animation: .2s cubic-bezier(.28,.62,.74,1.11) push-hex-link !important;
+            -webkit-animation: .2s cubic-bezier(.28,.62,.74,1.11) push-hex-link !important;
+            animation-fill-mode: forwards !important;
+            -webkit-animation-fill-mode: forwards !important;
+        }
+
+    .hex::after {
+        content: '';
+        display: block;
+        padding-bottom: 86.602%; /* =  100 / tan(60) * 1.5 */
+    }
+.hexIn {
+    position: absolute;
+    width: 96%;
+    padding-bottom: 110.851%; /* =  width / sin(60) */
+    margin: 0 2%;
+    overflow: hidden;
+    visibility: hidden;
+    outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+    -webkit-transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+    -ms-transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+    transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+
+}
+
+    .hexIn * {
+        position: absolute;
+        background-color: darkgrey;
+        visibility: visible;
+        outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+    }
+.hexLink:hover {
+}
+#hexGrid:hover {
+}
+.hexLink {
+    display: block;
+    width: 100%;
+    opacity: .9;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    -webkit-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+    -ms-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+    transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+}
+
+/*** HEX CONTENT **********************************************************************/
+.hex img {
+    left: -100%;
+    right: -100%;
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+    -webkit-transform: rotate3d(0,0,0,0deg);
+    -ms-transform: rotate3d(0,0,0,0deg);
+    transform: rotate3d(0,0,0,0deg);
+}
+
+/*** HEXAGON SIZING AND EVEN ROW INDENTATION *****************************************************************/
+
+
+@media (min-width:901px)  { /* <- 4-3  hexagons per row */
+    #hexGrid {
+        transform: perspective(1000px) rotateX(50deg) rotateZ(9deg) translate3d(0, -200px, 15px) !important;
+        -webkit-transform: perspective(1000px) rotateX(50deg) rotateZ(9deg) translate3d(0, -200px, 15px) !important;
+    }
+
+    .hex {
+        width: 25%; /* = 100 / 4 */
+    }
+
+        .hex:nth-child(7n+5) { /* first hexagon of even rows */
+            margin-left: 12.5%; /* = width of .hex / 2  to indent even rows */
+        }
+}
+
+@media (min-width: 900px) and (max-width:1100px) and (max-width: 1370px) { /* <- 3-2  hexagons per row */
+
+    #hexGrid {
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+
+
+    .hex {
+        width: 25%; /* = 100 / 4 */
+    }
+
+        .hex:nth-child(7n+5) { /* first hexagon of even rows */
+            margin-left: 12.5%; /* = width of .hex / 2  to indent even rows */
+        }
+}
+
+@media (max-width: 900px) and (min-width:601px) { /* <- 3-2  hexagons per row */
+    #hexGrid {
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+
+    .project-about ul {
+        font-size: calc(.9vw + .9vh) !important; 
+    }
+        .hex {
+        width: 33.333%; /* = 100 / 3 */
+        perspective: none;
+    }
+
+        .hex:nth-child(5n+4) { /* first hexagon of even rows */
+            margin-left: 16.666%; /* = width of .hex / 2  to indent even rows */
+        }
+}
+
+@media (max-width: 600px) { /* <- 2-1  hexagons per row */
+    #hexGrid {
+    }
+
+    .hex {
+        width: 50%; /* = 100 / 3 */
+    }
+
+        .hex:nth-child(3n+3) { /* first hexagon of even rows */
+            margin-left: 25%; /* = width of .hex / 2  to indent even rows */
+        }
+}
+
+
+/* The Modal (background) */
+@keyframes modal-show{
+    0%{
+        transform: translateY(500px);
+        -webkit-transform: translateY(500px);
+    }
+    100% {
+        transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+        opacity: 1;
+    }
+
+}
+
+.modal-active{
+    display: block; /* Hidden by default */
+    opacity: 0;
+    z-index: 99; /* Sit on top */
+    left: 20%;
+    animation: modal-show .2s;
+    -webkit-animation: modal-show .2s;
+    animation-delay: .2s;
+    -webkit-animation-delay: .2s;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    perspective: 2000px;
+    top: 0;
+    width: 80%; /* Full width of component */
+    height: 100%; /* Full height */
+}
+
+
+
+/* Modal Content/Box */
+@keyframes modal-fade{
+    100% {
+        transform: translateY(500px);
+        -webkit-transform: translateY(500px);
+        opacity: 0;
+    }
+}
+.modal-fade {
+    display: block; /* Hidden by default */
+    opacity: 1;
+    z-index: 100; /* Sit on top */
+    left: 20%;
+    top: 0;
+    width: 80%; /* Full width of component */
+    height: 100%; /* Full height */
+    animation: modal-fade .2s;
+    -webkit-animation: modal-fade .2s;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    pointer-events: none;
+}
+.modal-content {
+    background-color: rgba(49,49,60, 1);
+    background-image: url(assault.png);
+    top: 5%;
+    margin: 0;
+    width: 85%; /* Could be more or less, depending on screen size */
+    height: 85%;
+    left: 10%;
+}
+.modal-content p {
+    color: white;
+    font-size: 72px;
+    opacity: 1;
+}
+
+    .modal-content .row{
+        width: 100%;
+        margin: 0;
+    }
+    .modal-content .row,
+    .modal-content .row .col-sm-4,
+    .modal-content .row .col-sm-8 {
+        height: 100%;
+        padding-left: 0;
+        border-right: 1px ridge black;
+        padding-right: 0;
+        text-align: left;
+    }
+    .modal-content img,
+    .modal-content video{
+        opacity: 1;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+    }
+    h4{
+        font-size: 72px;
+    }
+
+    .carousel-control{
+        height: 100%;
+    }
+
+.carousel {
+    height: 100%;
+}
+.carousel-inner,
+.carousel-inner .item {
+    height: 100%;
+    overflow: hidden;
+}
+.carousel img {
+    max-height: 100%;
+    padding: 10px;
+}
+.carousel video {
+    max-height: 100%;
+    padding: 10px;
+}
+.project-title {
+    height: 15%;
+}
+.project-description {
+    height: 20%;
+    border-top: 1px ridge black;
+}
+.project-about {
+    height: 65%;
+    border-top: 1px ridge black;
+    border-bottom: 1px ridge black;
+}
+.modal-content h4,
+.modal-content h3{
+    margin: 0;
+    text-align: center;
+    font-size: 3vh;
+    padding-top: 1vh;
+}
+.project-title h4{
+    padding-top: 3.5vh;
+    font-size: 3vw;
+}
+
+.col-xs-4,
+.col-xs-8 {
+    height: 100%;
+    vertical-align: middle;
+    overflow-y: scroll;
+}
+.col-xs-4 {
+    border-right: 1px ridge black;
+}
+.project-description h3,
+.project-about h3{
+    padding-top: 5.5vh;
+    font-size: 2vw;
+}
+.caption {
+    text-align: center;
+    width: 100%;
+    font-size: 2.5vh;
+    padding-right: 5%;
+    padding-left: 5%;
+    position: absolute;
+    background-color: rgba(49,49,60, .2);
+    background-image: url(assault.png);
+    bottom: 2.5%;
+}
+.project-about ul {
+    text-align: left;
+    font-size: calc(.8vw + .5vh);
+    padding-top: 2%;
+    padding-left: 2%;
+}
+.image-modal .modal-content img,
+.image-modal .modal-content video{
+    max-height: 100%;
+    width: auto;
+    padding: 1%;
+}
+.image-modal .modal-content {
+    background-color: rgba(0,0,0, .7);
+    background-image: url(assault.png);
+}
+@media (max-width: 767px) {
+
+    @keyframes pop {
+        100% {
+            transform: translateZ(200px) translateY(-25px) perspective(450px);
+            -webkit-transform: translateZ(200px) translateY(-25px) perspective(450px);
+            animation-fill-mode: forwards;
+            -webkit-animation-fill-mode: forwards;
+        }
+    }
+
+
+    .modal-content .row,
+    .modal-content .row .col-sm-4,
+    .modal-content .row .col-sm-8 {
+        height: 60%;
+    }
+
+    .modal {
+        width: 100%;
+        top: 15%;
+        left: 0;
+    }
+
+    .hexLink:hover {
+        opacity: 1;
+    }
+    #hexGrid {
+        padding-top: 10%;
+        padding-right: 0%;
+        transform: none;
+        -webkit-transform: none;
+    }
+    .modal-content {
+        background-color: rgba(49,49,60, 1);
+        background-image: url(assault.png);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        top: 5%;
+        width: 80%; /* Could be more or less, depending on screen size */
+        left: 10%;
+        height: 75%;
+        margin: 0;
+    }
+    .hex.hover .hexLink{
+        border: none;
+    }
+    .caption {
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        bottom: 0;
+        top: 85%;
+        font-size: 4vw;
+        position: relative;
+        background-color: rgba(0,0,0, .9);
+        background-image: url(assault.png);
+        overflow: hidden;
+    }
+
+    .modal-content .row,
+    .modal-content .row .col-sm-4{
+        height: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: left;
+    }
+
+
+    .project-description h3{
+        padding-top: 3.5vh;
+
+    }
+
+    .modal-content h4 {
+        padding-top: 2vh;
+        font-size: 3vh;
+    }
+    .modal-content h3 {
+        margin: 0;
+        text-align: center;
+        font-size: 2vh;
+    }
+    .project-about h3{
+        padding-top: 12.5vh;
+    }
+
+    .img-responsive {
+        position: absolute !important;
+        left: 0;
+        right: 0;
+        height: 85%;
+        width: 85%;
+        bottom: 0 !important;
+        padding-bottom: 15px;
+    }
+    .image-content .img-responsive{
+        height: auto;
+        width: auto;
+    }
+    .image-modal{
+        overflow: visible;
+        z-index: 200;
+    }
+    .image-content{
+        height: 95%;
+        width: 95%;
+        left: 2.5%;
+        top:-12.5%;
+    }
+    project-about ul {
+        list-style-type: disc;
+        text-align: left;
+        padding-top: 1%;
+    }
+
+    .project-about li{
+        font-size: 3vw;
+    }
+
+
+}
