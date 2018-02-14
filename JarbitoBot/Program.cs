@@ -15,7 +15,7 @@ namespace JarbitoBot
             _client.Log += Log;
             _client.MessageReceived += MessageReceived;
 
-            string token = "MzczMjIwNjcxNTk1MDg1ODI0.DNPlEQ.R3wVRAN3MiLS6KiHBPvI85YdSMg"; // Remember to keep this private!
+            string token = ""; // Remember to keep this private!
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
